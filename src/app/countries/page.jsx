@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
 import { Pagination } from "antd"; 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,6 +11,7 @@ import CountryCard from "../../components/CountryCard";
 import CountryModal from "../../components/CountryModal";
 import Loading from "../../components/Loading";
 import styles from "./Countries.module.css";
+import { Skeleton } from "antd";
 
 const regions = ["africa", "americas", "antarctic", "asia", "europe", "oceania"];
 
@@ -20,6 +22,29 @@ export default function Countries() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+
+  useEffect(() => {
+    const fetchComCache = async () => {
+      const cacheKey = "countriesData";
+      const cache = sessionStorage.getItem(cacheKey);
+      
+      if (cache) {
+        setCountries(JSON.parse(cache));
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        const response = await axios.get("https://restcountries.com/v3.1/all");
+        setCountries(response.data);
+        sessionStorage.setItem(cacheKey, JSON.stringify(response.data));
+      } catch (error) {
+        alert("Erro ao carregar países: " + error.message);
+      } 
+    };
+
+    fetchComCache();
+  }, []);
 
   const fetchCountries = async (region = "") => {
     setIsLoading(true);
