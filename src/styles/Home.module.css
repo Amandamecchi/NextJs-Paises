@@ -5,16 +5,21 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: lightgray;
+    background-color: rgb(183, 209, 243);
 }
 
 .image {
-    width: 300px;
-    height: auto;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 10px 10px 20px rgba(255, 255, 255, 0.5);
 }
-
+.description {
+    font-size: 1rem;
+    text-align: center;
+    margin: 20px;
+    color: rgb(73, 73, 73);
+}
 .title {
     margin: 20px;
     text-align: center;
@@ -31,7 +36,7 @@ padding: 0.5rem 2.5rem;
 .button {
     padding: 10px 20px;
     margin: 20px;
-    background-color: blue;
+    background-color: rgb(122, 166, 231);
     color: white;
-    border-radius: 5px;
+    border-radius: 20px;
 }

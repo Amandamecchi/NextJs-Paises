@@ -56,7 +56,7 @@ export default function Countries() {
 
   return (
     <div className={styles.container}>
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} closeOnClick pauseOnHover draggable theme="light" />
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} closeOnClick pauseOnHover draggable pauseOnHouver theme="light" />
       <h1>Lista de Países do Mundo</h1>
       <div>
         {regions.map((region) => (
@@ -87,13 +87,13 @@ export default function Countries() {
         )}
       </div>
 
-      {/* Componente de paginação corrigido */}
       <Pagination
         current={currentPage}
         pageSize={itemsPerPage}
         total={countries.length}
         onChange={(page) => setCurrentPage(page)}
         showSizeChanger={false}
+        hideOnSinglePage={true}
         style={{ marginTop: "20px" }}
       />
 
