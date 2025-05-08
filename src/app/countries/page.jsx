@@ -10,7 +10,7 @@ import styles from "./Countries.module.css";
 
 const regions = ["africa", "americas", "antarctic", "asia", "europe", "oceania"];
 
-export default function Countries() {
+export default function Countries() { 
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [allCountries, setAllCountries] = useState([]);
