@@ -1,7 +1,6 @@
 "use client";
 
-import React from 'react';
-import { useEffect, UseState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,7 +8,7 @@ import styles from '../../styles/Home.module.css';
 import { Skeleton } from 'antd';
 
 export default function Home() {
-    const [isLoading, setIsLoading] = UseState(true);
+    const [isLoading, setIsLoading] = useState(true);
 
 useEffect(() => {
     const timer = setTimeout(() => {
