@@ -2,6 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { pagination } from "antd";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import CountryCard from "../../components/CountryCard";
 import CountryModal from "../../components/CountryModal";
@@ -15,6 +18,8 @@ export default function Countries() {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [allCountries, setAllCountries] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
 
   const fetchCountries = async (region = "") => {
     setIsLoading(true);
@@ -26,6 +31,7 @@ export default function Countries() {
       setCountries(response.data);
       if (!region) {
         setAllCountries(response.data);
+        toast.success("Todos os países carregados com sucesso!");
       }
     } catch (error) {
       console.error("Erro ao carregar países:", error);
@@ -40,8 +46,17 @@ export default function Countries() {
 
   const resetFilter = () => fetchCountries();
 
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentCountries = countries.slice(startIndex, endIndex);
+
+  const handleCardClick = (country) => {
+    toast.info(`Você clicou em ${country.name.common}`, {});
+  };
+
   return (
     <div className={styles.container}>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} closeOnClick pauseOnHover draggable theme="light" />
       <h1>Lista de Países do Mundo</h1>
       <div>
         {regions.map((region) => (
@@ -71,11 +86,20 @@ export default function Countries() {
           ))
         )}
       </div>
+      <pagination
+        current={currentPage}
+        pageSize={itemsPerPage}
+        total={countries.length}
+        onChange={(page) => setCurrentPage(page)}
+        showSizeChanger={false}
+        style={{ marginTop: "20px" }}
+      />
 
       {selectedCountry && (
         <CountryModal
           country={selectedCountry}
           onClose={() => setSelectedCountry(null)}
+          onClick={handleCardClick}
         />
       )}
     </div>
