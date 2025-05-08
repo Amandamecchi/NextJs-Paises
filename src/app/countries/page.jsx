@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { pagination } from "antd";
+import { Pagination } from "antd"; 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -77,7 +77,7 @@ export default function Countries() {
         {isLoading ? (
           <Loading />
         ) : (
-          countries.map((country, index) => (
+          currentCountries.map((country, index) => (
             <CountryCard
               key={index}
               country={country}
@@ -86,7 +86,9 @@ export default function Countries() {
           ))
         )}
       </div>
-      <pagination
+
+      {/* Componente de paginação corrigido */}
+      <Pagination
         current={currentPage}
         pageSize={itemsPerPage}
         total={countries.length}
